@@ -1,30 +1,39 @@
-
 def read_file_to_lists(inputfile):
     file = open(inputfile, "r")
     data = file.read()
-    data_into_list = data.split("\n")
-    data_into_list = data_into_list.split(" ")
-    return data_into_list
+    data = data.split()
+    return data
 
 def create_two_separate_lists(datalist):
     listLeft = []
     listRight = []
     counter = 0
+    
     for element in datalist:
         if counter % 2 == 0:
-            listLeft.append(element)
+            listLeft.append(int(element))
             counter = counter + 1
         else:
-            listRight.append(element)
+            listRight.append(int(element))
             counter = counter + 1
 
     return listLeft, listRight
 
+def calculate(left, right):
+    left.sort()
+    right.sort()
+
+    distances = [abs(a - b) for a, b in zip(left, right)]
+    print(distances)
+    sum = 0
+    for number in distances:
+        sum += number
+    return sum
 
 def main():
-    list = read_file_to_lists("dummyList.txt")
-    print(f"List after reading from file: {list}")
+    list = read_file_to_lists("locations.txt")
     left, right = create_two_separate_lists(list)
-    print(f"List1: {left}, List2: {right}")
+    sum = calculate(left, right)
+    print(f"Sum: {sum}")
 
 main()
